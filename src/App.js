@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Suspense, lazy, useContext} from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import { LinearProgress } from '@material-ui/core'
+import {AuthContext} from './contexts/auth'
 
-function App() {
+import { LOGIN, MAIN } from './routes'
+
+const Login = lazy(() => import('./pages/login'))
+const Main = lazy(() => import('./pages/main'))
+
+const App =() => {
+
+  const { userInfo, } = useContext(AuthContext)
+
+  const { isUserLoggedIn } = userInfo
+  if (!isUserLoggedIn && window.location.pathname !== MAIN) {
+    return <Redirect to={MAIN} />
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense fallback ={<LinearProgress />}>
+      <Switch>
+        <Route path={LOGIN} component={Login}/>
+        <Route path={MAIN} component={Main}/>
+      </Switch>
+    </Suspense>
   );
 }
 
