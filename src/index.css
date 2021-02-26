@@ -16,16 +16,16 @@ time, mark, audio, video {
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-	vertical-align: baseline;
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+/* article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
-}
+} */
 body {
 	line-height: 1;
+	background-color: #2D2C29!important;
 }
 ol, ul {
 	list-style: none;
